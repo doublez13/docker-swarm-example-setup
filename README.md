@@ -5,6 +5,6 @@ This is an example setup along with example configs for setting up Docker swarm.
 
 ## Components Used
 **Docker Swarm:** Container-orchestration system  
-**Traefix:** Reverse proxy and certificate manager  
+**Traefik:** Reverse proxy and certificate manager  
 **Keepalived:** Uses VRRP to assign one floating IP address to the swarm  
 **NFS:** Stores Docker volumes on NFS so they're accessible on any node
