@@ -1,0 +1,64 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:v2.3"
+    command:
+      - "--api=false"
+      - "--providers.docker=true"
+      - "--providers.docker.swarmMode=true"
+      - "--providers.docker.watch=true"
+      - "--providers.docker.endpoint=tcp://socket-proxy:2375"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=reverse-proxy_web-servers"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=EMAIL_GOES_HERE"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "letsencrypt:/letsencrypt"
+    networks:
+      - web-servers
+      - socket-proxy
+    #I don't think this contraint is required since the socket-proxy is on a manager.
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+  #This is the entry point into the docker socket.
+  #It is not recommended to have a container with exposed ports also
+  #have access to the docker socket. This container also locks down the
+  #docker socket to a subset of GET commands only.
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      CONTAINERS: 1
+      SERVICES: 1
+      NODES: 1
+      NETWORKS: 1
+      TASKS: 1
+      VERSION: 1
+    networks:
+      - socket-proxy
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  web-servers:
+  socket-proxy:
+    internal: true
+
+volumes:
+  letsencrypt:
