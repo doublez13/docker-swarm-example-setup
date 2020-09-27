@@ -1,0 +1,75 @@
+version: '3.3'
+
+services:
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: DB_PW_GOES_HERE
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+     - reverse-proxy_web-servers
+     - default
+    volumes:
+     - wordpress:/var/www/html
+    deploy:
+      labels:
+        # The labels are usefull for Traefik only
+        - "traefik.enable=true"
+        - "traefik.docker.network=reverse-proxy_web-servers"
+        # Get the routes from https
+        - "traefik.http.routers.wordpress-secured.rule=Host(`FQDN_GOES_HERE`)"
+        - "traefik.http.routers.wordpress-secured.entrypoints=websecure"
+        # Apply autentificiation with http challenge
+        - "traefik.http.routers.wordpress-secured.tls=true"
+        - "traefik.http.routers.wordpress-secured.tls.certresolver=myresolver"
+        # Register the service
+        - "traefik.http.services.wordpress.loadbalancer.server.port=80"
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: DB_PW_GOES_HERE
+    networks:
+     - default
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wp-cli:
+    depends_on:
+      - wordpress
+      - db
+    image: wordpress:cli
+    user: '33'
+    networks:
+     - default
+    volumes:
+     - wordpress:/var/www/html
+
+networks:
+  default:
+    internal: true
+  reverse-proxy_web-servers:
+    external: true
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=NFS_FQDN_GOES_HERE,rw
+      device: "NFS_PATH_GOES_HERE"
+  wordpress:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=NFS_FQDN_GOES_HERE,rw
+      device: "NFS_PATH_GOES_HERE"
