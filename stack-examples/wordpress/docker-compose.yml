@@ -20,7 +20,7 @@ services:
       labels:
         # The labels are usefull for Traefik only
         - "traefik.enable=true"
-        - "traefik.docker.network=reverse-proxy_web-servers"
+        - "traefik.docker.network=web-servers"
         # Get the routes from https
         - "traefik.http.routers.wordpress-secured.rule=Host(`FQDN_GOES_HERE`)"
         - "traefik.http.routers.wordpress-secured.entrypoints=websecure"
@@ -57,7 +57,7 @@ services:
 networks:
   default:
     internal: true
-  reverse-proxy_web-servers:
+  web-servers:
     external: true
 
 volumes:
