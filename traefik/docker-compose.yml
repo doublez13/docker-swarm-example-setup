@@ -57,6 +57,7 @@ services:
 
 networks:
   web-servers:
+    external: true
   socket-proxy:
     internal: true
 
