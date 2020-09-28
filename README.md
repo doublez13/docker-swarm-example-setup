@@ -12,7 +12,7 @@ This is an example setup along with example configs for setting up Docker Swarm.
 ## Docker Swarm:
 ToDo
 
-An external docker overlay network is required for all web server containers to attach to.  
+An external docker overlay network needs to be created for the web servers and proxy to attach to.  
 `docker network create --driver overlay web-servers`
 
 
