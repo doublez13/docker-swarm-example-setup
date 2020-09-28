@@ -10,7 +10,12 @@ This is an example setup along with example configs for setting up Docker Swarm.
 **NFS:** Stores Docker volumes on NFS so they're accessible on any node
 
 ## Docker Swarm:
-ToDO
+ToDo
+
+An external docker overlay network is required for all web server containers to attach to.  
+`docker network create --driver overlay web-servers`
+
+
 ## Traefik:
 ToDO
 ### Docker Socket Proxy (optional):
