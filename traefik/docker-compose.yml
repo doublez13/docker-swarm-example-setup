@@ -10,7 +10,7 @@ services:
       - "--providers.docker.watch=true"
       - "--providers.docker.endpoint=tcp://socket-proxy:2375"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=reverse-proxy_web-servers"
+      - "--providers.docker.network=web-servers"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
