@@ -10,7 +10,9 @@ This is an example setup along with example configs for setting up Docker Swarm.
 **NFS:** Stores Docker volumes on NFS so they're accessible on any node
 
 ## Docker Swarm:
+ToDO
 ## Traefik:
+ToDO
 ### Docker Socket Proxy (optional):
 As Traefik needs to be aware of containers stopping and starting, it uses the docker socket file for communication. Although the docker socket can be bind mounted directly into the Traefik container (and is shown in the official Traefik docker examples), this is not recommended, as Traefik essentially has root on the docker host. Additionally, adding the `ro` mount option on the docker socket doesn't protect againt much either.  
 
