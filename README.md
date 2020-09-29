@@ -10,9 +10,11 @@ This is a very basic setup (with example configs) for setting up a "self-healing
 **NFS:** Stores Docker volumes on NFS so they're accessible on any node
 
 ## Docker Swarm:
-ToDo
+We'll be using Docker Swarm for the container-orchestration system in these examples. The minimum number of swarm members needed for any type of fault tolerance is three, and this is assuming they're all manager nodes. With three manager nodes, one node can fall out of the cluster and it's services can move to another node.
 
-An external docker overlay network needs to be created for the web servers and proxy to attach to.  
+I have purposefully tried to keep as much of the configuration contained within compose files. The exception to this is an overlay network that all web servers along with the Traefik proxy attach to. I have called this network `web-servers`, and this is referenced in the example compose files as an external network.
+
+We create that network here.  
 `docker network create --driver overlay web-servers`
 
 
