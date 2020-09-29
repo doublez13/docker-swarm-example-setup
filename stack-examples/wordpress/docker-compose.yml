@@ -53,6 +53,9 @@ services:
      - default
     volumes:
      - wordpress:/var/www/html
+    deploy:
+      restart_policy:
+        condition: none
 
 networks:
   default:
