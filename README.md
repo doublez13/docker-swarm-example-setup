@@ -1,5 +1,5 @@
 # Docker Swarm Reverse Proxy Example Setup
-This is an example setup along with example configs for setting up Docker Swarm. This is really just an organized collection of my notes and configs, but others can use these as a starting point. This leverages Traefik, an open source reverse proxy and load balancing software written in Go. Traefik can also automatically handle certificate generation and renewal using the ACME protocol. These examples use Let's Encrypt as the certificate provider. 
+This is a very basic setup (with example configs) for setting up a "self-healing" Docker Swarm. This is really just an organized collection of my notes and configs, but others can use these as a starting point. This leverages Traefik, an open source reverse proxy and load balancing software written in Go.
 
 ![alt text](https://github.com/doublez13/docker-swarm-example-setup/blob/master/example-architecture.jpg)
 
@@ -17,7 +17,8 @@ An external docker overlay network needs to be created for the web servers and p
 
 
 ## Traefik:
-ToDO
+Traefik is a modern HTTP reverse proxy server with [many other interesting features](https://doc.traefik.io/traefik/middlewares/overview/). Traefik can be thought of as an ingress controller (if you're coming from a Kubernetes mindset). In this example, we put Traefik in front of our web containers, and let it handle the routing based on Server Name Indication. Although not required, it's nearly effortless to hook Let's Encrypt into Traefik for automatied certificates, and we'll do that in the examples. Traefik can also handle some more advanced configurations, like load balancing beween multiple service replicas.
+
 ### Docker Socket Proxy (optional):
 As Traefik needs to be aware of containers stopping and starting, it uses the docker socket file for communication. Although the docker socket can be bind mounted directly into the Traefik container (and is shown in the [official Traefik Docker examples](https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/)), this is not recommended, as Traefik essentially has root on the docker host. Additionally, adding the `ro` mount option on the docker socket doesn't protect againt much either.  
 
