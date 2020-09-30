@@ -15,7 +15,9 @@ We'll be using Docker Swarm for the container-orchestration system in these exam
 I have purposefully tried to keep as much of the configuration contained within compose files. The exception to this is an overlay network that all web servers along with the Traefik proxy attach to. I have called this network `web-servers`, and this is referenced in the example compose files as an external network.
 
 We create that network here.  
-`docker network create --driver overlay web-servers`
+`docker network create --driver overlay web-servers`  
+If the network connecting your nodes is not private, the `--opt encrypted` flag can be used to encrypt the traffic.  
+`docker network create --driver overlay --opt encrypted web-servers`  
 
 
 ## Traefik:
