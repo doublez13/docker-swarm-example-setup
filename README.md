@@ -17,7 +17,6 @@ I have purposefully tried to keep as much of the configuration contained within 
 We create that network here.  
 `docker network create --driver overlay web-servers`  
 If the network connecting your nodes is not private, the `--opt encrypted` flag can be used to encrypt the traffic.  
-`docker network create --driver overlay --opt encrypted web-servers`  
 
 
 ## Traefik:
