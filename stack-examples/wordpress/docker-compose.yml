@@ -60,6 +60,10 @@ services:
 networks:
   default:
     internal: true
+    #Uncomment to enable network encryption between wordpress and db
+    #driver_opts:
+    #  encrypted: ""
+
   web-servers:
     external: true
 
