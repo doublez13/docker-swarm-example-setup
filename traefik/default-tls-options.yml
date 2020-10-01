@@ -3,3 +3,8 @@ tls:
     default:
       minVersion: VersionTLS12
       sniStrict: true
+http:
+  middlewares:
+    hsts:
+      headers:
+        stsSeconds: 63072000
