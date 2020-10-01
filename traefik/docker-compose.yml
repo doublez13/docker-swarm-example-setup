@@ -62,6 +62,9 @@ networks:
     external: true
   socket-proxy:
     internal: true
+    #Uncomment to enable network encryption between traefik and the socket proxy
+    #driver_opts:
+    #  encrypted: ""
 
 volumes:
   letsencrypt:
