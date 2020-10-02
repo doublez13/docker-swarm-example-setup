@@ -17,6 +17,7 @@ I have purposefully tried to keep as much of the configuration contained within 
 We create that network here.  
 `docker network create --driver overlay web-servers`  
 If the network connecting your nodes is not private, the `--opt encrypted` flag can be used to encrypt the traffic.  
+A small encryption benchmark can be found [here](https://github.com/doublez13/docker-swarm-example-setup/issues/1).  
 
 
 ## Traefik:
