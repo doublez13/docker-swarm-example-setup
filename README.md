@@ -39,4 +39,5 @@ There are many third party Docker volume drivers out there. For this setup, I'm 
 
 Tested when Traefik and the socket proxy are on the same node. Need to test this when they're on different nodes.  
 Draining Traefik and the socket proxy to a different node consistantly took <5 seconds (that's seconds between return codes of 200 on a wp stack it was serving).  
-Draining a WP stack is a different story. I've seen times of up to 40 seconds 🤯
+Draining a WP stack is a different story. I've seen times of up to 40 seconds 🤯  
+Noticed messages like `Bulk sync to node BLAH timed out` in the logs during the longer migrations.
