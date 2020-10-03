@@ -2,8 +2,6 @@ version: '3.3'
 
 services:
   wordpress:
-    depends_on:
-      - db
     image: wordpress:latest
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -28,7 +26,6 @@ services:
 
   db:
     image: mysql:5.7
-    restart: always
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
       MYSQL_DATABASE: wordpress
@@ -40,9 +37,6 @@ services:
       - db_data:/var/lib/mysql
 
   wp-cli:
-    depends_on:
-      - wordpress
-      - db
     image: wordpress:cli
     user: '33'
     networks:
