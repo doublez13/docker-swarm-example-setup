@@ -33,3 +33,10 @@ Docker swarm may be able to move your containers to another node if a problem is
 
 ## NFS:
 There are many third party Docker volume drivers out there. For this setup, I'm just using the local driver to NFS mount docker volumes. I have seen some mixed feedback on this, but my understanding is as follows. Do **NOT** NFS mount the docker volumes directory (/var/lib/docker/volumes). This is just asking for trouble when two different docker daemons think they have ownership. However, I have seen no problems using the local driver with type set to NFS. Docker automatically mounts and unmounts the volumes inside the docker volumes directory. Check out the wordpress compose file for an example.
+
+# Random Notes I Need to Clean Up
+## Migration Times
+
+Tested when Traefik and the socket proxy are on the same node. Need to test this when they're on different nodes.  
+Draining Traefik and the socket proxy to a different node consistantly took <5 seconds (that's seconds between return codes of 200 on a wp stack it was serving).  
+Draining a WP stack is a different story. I've seen times of up to 40 seconds 🤯
