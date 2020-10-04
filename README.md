@@ -41,3 +41,9 @@ Tested when Traefik and the socket proxy are on the same node. Need to test this
 Draining Traefik and the socket proxy to a different node consistantly took <5 seconds (that's seconds between return codes of 200 on a wp stack it was serving).  
 Draining a WP stack is a different story. I've seen times of up to 40 seconds 🤯  
 Noticed messages like `Bulk sync to node BLAH timed out` in the logs during the longer migrations.
+
+## Cloning VMs
+For this setup, I made one CentOS 8 VM and then cloned it twice.
+* Delete the SSH keys before cloining: `rm -rf /etc/ssh/ssh_host_*`
+* Don't install docker prior to cloning, or if you do, delete the key.json on the clones file and restart docker
+* Create new network interface UUIDs with uuidgen
