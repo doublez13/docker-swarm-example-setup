@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  iperf-server:
+    image: networkstatic/iperf3
+    command: -s
+    networks:
+     - default
+  iperf-client:
+    image: networkstatic/iperf3
+    command: -c iperf-server
+    networks:
+     - default
+    deploy:
+      restart_policy:
+        condition: none
+
+networks:
+  default:
+    driver_opts:
+      encrypted: ""
