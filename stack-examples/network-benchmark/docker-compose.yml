@@ -11,9 +11,6 @@ services:
     command: -c iperf-server
     networks:
      - default
-    deploy:
-      restart_policy:
-        condition: none
 
 networks:
   default:
