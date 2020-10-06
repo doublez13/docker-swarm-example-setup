@@ -29,7 +29,7 @@ services:
     networks:
       - web-servers
       - socket-proxy
-    #I don't think this contraint is required since the socket-proxy is on a manager.
+    #I don't think this constraint is required since the socket-proxy is on a manager.
     deploy:
       placement:
         constraints:
