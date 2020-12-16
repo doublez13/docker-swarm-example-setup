@@ -68,3 +68,8 @@ networks:
 
 volumes:
   letsencrypt:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=NFS_FQDN_GOES_HERE,rw
+      device: ":NFS_PATH_GOES_HERE"
