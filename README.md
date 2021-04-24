@@ -1,3 +1,5 @@
+[A KUBERNETES GUIDE IS ALSO AVAILABLE](https://github.com/doublez13/Bare-Metal-Kubernetes-Setup)
+
 # Docker Swarm Reverse Proxy Example Setup
 This is a very basic setup (with example configs) for setting up a "self-healing" Docker Swarm. This is really just an organized collection of my notes and configs, but others can use these as a starting point. This leverages Traefik, an open source reverse proxy and load balancing software written in Go. The example templates have the correct settings to receieve an A+ on [SSL Labs](https://www.ssllabs.com/ssltest/).
 
